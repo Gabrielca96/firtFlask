@@ -1,0 +1,29 @@
+<!-- Exporto este documento a base.html -->
+{% extends 'base.html' %}
+<!-- Importo macros.html -->
+{% import 'macros.html' as macros %}
+
+<!-- Heredo titulo de base.html y concateno valores -->
+{% block title %}
+    {{ super() }}
+    Bienvenido
+{% endblock %}  
+
+{% block content %}
+<!-- Estructura de control con if -->
+    {% if user_ip %}
+        <h1>Hello word Flask, tu IP es {{ user_ip }}</h1>
+    {% else %}
+    <!-- Si no tengo ip me regresa a home -->
+    <!-- con url_for flask encuentra ruta especifica olo mandando función con decorador de ruta -->
+        <a href="{{ url_for('index') }}">Ir a inicio</a>    
+    {% endif %}    
+
+    <!-- Para imprimir lista -->
+    <!-- Ojo que codigo se renderiza en ruta raiz, se arregla incrustandolo en codigo de arriba -->
+    <ul>
+        {% for todo in todos %}
+            {{ macros.render_todo(todo) }}
+        {% endfor %}
+    </ul>
+{% endblock %}
